@@ -7,18 +7,8 @@
         <title>Team Selector</title>
     </head>
     <body>
-        <div id="sideBar">
-            <div class="sidebarContent">
-                <a href="/">
-                    <img src="icons/home.png">
-                </a>    
-            </div>
-            <div class="sidebarContent"> 
-                <a href="/edit">
-                    <img src="icons/edit.png">
-                </a>
-            </div>
-        </div>
+        <script type="text/javascript" src="csv2json.js"></script>
+        <script src="main.js" type="module"></script>
         
         <div id="titleHeader">
             <h1>Team Selector</h1>
@@ -37,18 +27,20 @@
         </div>
         <div id="mainSection">
             <div id="infoSection">
-                <button class="createTeamsButton" id="generateRandomTeamsButton">Generate Teams Randomly from Pool</button>
-                <button class="createTeamsButton" id="matchmakeRandom">Matchmake Teams Random</button>
                 <form id="addPlayerForm">
                     <div>
                         <label for="addPlayerNameInput">Add Player Name:</label>
                         <input type="text" id="addPlayerNameInput" name="addPlayerNameInput">
                     </div>
                     <div>
-                        <label for="addPlayerRankInput">Add Player Rank:</label>
-                        <input type="text" id="addPlayerRankInput" name="addPlayerRankInput" maxlength="2" size="3">
+                        <label for="addPlayerRankInput">Add Player Rank from 1 - 10:</label>
+                        <input type="text" id="addPlayerRankInput" name="addPlayerRankInput">
                     </div>
                     <input type="button" value="Add Player" id="addPlayerButton"></input>
+		    <div>
+			<label for="mvpCheckbox">Ignore lfstats MVP:</label>
+		    	<input type="checkbox" id="mvpCheckbox" name="mvpCheckbox">
+		    </div>	
                     <div>
                         <label for="removePlayerNameInput">Remove Player Name:</label>
                         <input type="text" id="removePlayerNameInput" name="removePlayerNameInput">
@@ -60,6 +52,8 @@
                         <h2>Fetching average MVP, please wait...</h2>
                     </ul>
                 </div>
+                <button class="createTeamsButton" id="generateRandomTeamsButton">Generate Teams Randomly from Pool</button>
+                <button class="createTeamsButton" id="matchmakeRandom">Matchmake Teams Random</button>
             </div>
             <div id="teamSection" >
                 <div id="team1Header" class="teamHeader">
