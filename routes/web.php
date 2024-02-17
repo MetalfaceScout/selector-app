@@ -18,14 +18,13 @@ Route::get('/', function () {
     return view('main');
 });
 
-/* Route::resource('players', PlayerController::class)
-    ->only(['index', 'store'])
-    ->middleware(['auth', 'verified']);
-
+Route::resource('players', PlayerController::class)
+    ->only(['index', 'store', 'post', 'get']);
+/*
 Route::resource('teams', PlayerController::class)
     ->only(['index', 'store']);
     //->middleware(['auth', 'verified']); */
 
 Route::get('/getplayers', function () {
     //get data from lfstats and return it
-})
+});
