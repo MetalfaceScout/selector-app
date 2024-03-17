@@ -18,8 +18,6 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::resource('players', PlayerController::class)
-    ->only(['index', 'store', 'post', 'get']);
 /*
 Route::resource('teams', PlayerController::class)
     ->only(['index', 'store']);

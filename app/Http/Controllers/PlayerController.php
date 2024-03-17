@@ -12,7 +12,8 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        
+        $players = Player::all();
+        return response()->json($players);
     }
 
     /**
@@ -20,7 +21,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+    
     }
 
     /**
@@ -28,15 +29,23 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $player = Player::create($request->all());
+        $player->save();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Player $player)
+    public function show($playerid)
     {
-        //
+        $player = Player::find($playerid);
+        if (!empty($player)) {
+            return response()->json($player);
+        } else {
+            return response()->json([
+                "message" => "Not found"
+            ], 404);
+        }
     }
 
     /**
