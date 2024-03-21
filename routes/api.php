@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/players', [PlayerController::class, 'index']);             //GET players
 Route::get('/players/{id}', [PlayerController::class, 'show']);         //GET players/id
 Route::post('/players', [PlayerController::class, 'store']);            //POST players
-Route::put('/players/{id}', [PlayerController::class, 'update']);       //PUT players/id
-Route::delete('/players/{id}', [PlayerController::class, 'destroy']);   //DELETE players/id
+Route::put('/players/{player}', [PlayerController::class, 'update']);       //PUT players/id
+Route::delete('/players/{player}', [PlayerController::class, 'destroy']);   //DELETE players/id
