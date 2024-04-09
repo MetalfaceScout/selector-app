@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Team Selector</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+
+        @vite('resources/css/app.css')
+
     </head>
-    <body>
-        <script type="text/javascript" src="csv2json.js"></script>
-        <script src="main.js" type="module"></script>
-        
-        <div id="titleHeader">
-            <h1>Team Selector</h1>
-            <div id="formatSelectDivider">
-                <label for="formatSelect">Choose a team format:</label>
-                <select name="formatSelect" id="formatSelect">
+    <body class="antialiased dark:bg-zinc-800">
+        <div class="p-4 m-4 flex  dark:bg-red-950">
+            <h1 class="dark:text-white dark:bg-red-800 text-center my-auto text-2xl p-4 rounded-md" >Team Selector</h1>
+            <div id="formatSelectDivider" class="grid m-auto">
+                <label for="formatSelect" class="text-white text-2xl">Choose a team format:</label>
+                <select class="text-white dark:bg-red-800" id="formatSelect">
                     <option value="6playerStandard">6 Players</option>
                     <option value="5playerStandard">5 Players</option>
                     <optgroup label="Specials">
@@ -24,6 +28,18 @@
                     </optgroup>
                 </select>
             </div>
+            @if (Route::has('login'))
+                <div class="p-4 m-4">
+                    @auth
+                        <a href="{{ url('/teams') }}" class="dark:text-white dark:bg-red-800 rounded-md my-auto p-4 m-1 text-2xl">Edit Teams</a>
+                    @else
+                        <a href=" {{ url('/login')}}" class="dark:text-white dark:bg-red-800 rounded-md my-auto p-4 m-1 text-2xl">Login</a>
+                            @if (Route::has('register'))
+                            <a href=" {{ url('/register')}}" class="dark:text-white dark:bg-red-800 rounded-md my-auto p-4 m-1 text-2xl">Register</a>
+                            @endif
+                    @endauth
+                </div>
+            @endif
         </div>
         <div id="mainSection">
             <div id="infoSection">

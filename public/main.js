@@ -1,5 +1,5 @@
 import {Team, Player, createTeamRandom, teamFormats} from "./team.js";
-import { chooseRandomAmountFromArray, randomBool, randomInteger, randomizeArray } from "./rand.js";
+import { chooseRandomAmountFromArray, randomBool } from "./rand.js";
 import { copyTo } from "./array.js";
 import { Matchmaker } from "./matchmaker.js";
 import { Fetcher } from "./fetcher.js";
@@ -7,7 +7,6 @@ import { Fetcher } from "./fetcher.js";
 
 
 const playerPool = [];
-const teamHistory = [];
 
 let format = document.getElementById("formatSelect").value;
 let fetcher = new Fetcher();
@@ -16,10 +15,6 @@ let team1;
 let team2;
 
 let ignoreMVP = false;
-//some DOM stuff I can use
-// let li = document.createElement("li");
-// listItem.innerHTML = restaurantName;
-// listitem.classList.add("list-item")
 
 
 const FETCH_URL = "https://metalface.me/players.json"

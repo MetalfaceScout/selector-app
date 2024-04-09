@@ -1,0 +1,135 @@
+html {
+    background-color: #26292b;
+    color: #e8e6e3;
+    font-family: sans-serif;
+    font-size: 1.5rem;
+}
+
+button, #avgAvgMVP {
+    background-color: #222121;
+    color: #f0eaef;
+    border: 2px solid #e01010;
+    font-size: 1.5rem;
+}
+
+button:hover {
+    background-color: #525d64;
+    color: #f0eaef;
+}
+
+input {
+    background-color: #222121;
+    color: #f0eaef;
+    font-size: 1.5rem;
+    border: 2px solid #e01010;
+}
+
+input:hover {
+    color: #ffc0c0;
+}
+
+#mainContent {
+    display: grid;
+    margin: 0.5rem;
+    margin-top: 2rem;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+#choicePane {
+    display: grid;
+    margin: 0.7rem;
+}
+
+#choicePane button {
+    height: 50px;
+    margin: 0.1rem;
+    font-size: 1.5rem;
+}
+
+#statsPane {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: max-content max-content max-content;
+}
+
+#playerNameInput {
+    grid-column-end: 5;
+    grid-column-start: 1;
+    text-align: center;
+}
+
+
+
+body h1 {
+    margin: auto;
+    width: fit-content;
+}
+
+#playerNameInput {
+    width: auto;
+}
+
+#avgMVPPositions {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-end: 5;
+    grid-column-start: 1;
+}
+
+#statsPane button, #avgAvgMVP {
+    box-sizing: content-box;
+    font-size: 1.0rem;
+    width: 95%;
+    height: 90%;
+    margin: auto;
+    padding: 2px;
+}
+#avgAvgMVP h3 {
+    font-size: 1.0rem;
+    height: fit-content;
+    margin-top: 5px;
+}
+
+#avgAvgMVP {
+    display: flex;
+    flex-direction: column;
+}
+
+#avgAvgMVP input {
+    height: auto;
+    margin: auto;
+}
+
+#avgMVPPositions input {
+    margin: auto;
+}
+
+#avgMVPPositions div {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px #cac7c3;
+    padding: 5px;
+    background-color: #222121;
+}
+
+#avgMVPPositions div div {
+    border: none;
+}
+
+#avgMVP {
+    text-align: center;
+}
+
+.classIcon {
+    width: 100%;
+    height: auto;
+}
+
+body {
+    display: grid;
+    grid-template-columns:0.3fr 1fr 0.3fr;
+    grid-template-rows: minmax(0.2fr 0.5fr) 1fr;
+}
