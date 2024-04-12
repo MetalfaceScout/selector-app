@@ -41,7 +41,7 @@
                 </div>
             @endif
         </div>
-        <div id="mainSection">
+        <div id="mainSection" class="grid-cols-2">
             <div id="infoSection">
                 <form id="addPlayerForm">
                     <div>
