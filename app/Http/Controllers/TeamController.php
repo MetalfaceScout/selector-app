@@ -12,7 +12,6 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //Show either a team that belongs to a user or a random one
         
     }
 
@@ -29,7 +28,15 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $team = Team::create($request->all());
+        $team->save();
+    }
+
+    /**
+     * Given a player and a team, store that player in the team.
+     */
+    public function storePlayer(Request $request) {
+        //TODO: Make this? Should get this from Addplayer button
     }
 
     /**

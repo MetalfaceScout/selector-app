@@ -53,7 +53,8 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        //
+        dd($player);
+        return view('player.edit')->withPlayer($player);
     }
 
     /**

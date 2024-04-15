@@ -1,0 +1,6 @@
+Use livewire to get state from backend
+If each team has players, then use the user as the identifier for the team
+Won't be too hard?
+
+
+Have a login page, brings me to the team editor
