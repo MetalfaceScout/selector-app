@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePlayerRequest;
+use App\Http\Requests\UpdatePlayerRequest;
 use App\Models\Player;
-use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
@@ -12,8 +13,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::all();
-        return response()->json($players);
+        //
     }
 
     /**
@@ -21,31 +21,23 @@ class PlayerController extends Controller
      */
     public function create()
     {
-    
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePlayerRequest $request)
     {
-        $player = Player::create($request->all());
-        $player->save();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($playerid)
+    public function show(Player $player)
     {
-        $player = Player::find($playerid);
-        if (!empty($player)) {
-            return response()->json($player);
-        } else {
-            return response()->json([
-                "message" => "Not found"
-            ], 404);
-        }
+        //
     }
 
     /**
@@ -53,19 +45,15 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        dd($player);
-        return view('player.edit')->withPlayer($player);
+        return view("player.edit")->withPlayer($player);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Player $player)
+    public function update(UpdatePlayerRequest $request, Player $player)
     {
-        $player->update($request->all());
-        return response()->json([
-            "message" => "Updated"
-        ], 200);
+        //
     }
 
     /**
@@ -73,9 +61,6 @@ class PlayerController extends Controller
      */
     public function destroy(Player $player)
     {
-        $player->delete();
-        return response()->json([
-            "message" => "Deleted"
-        ], 200);
+        //
     }
 }

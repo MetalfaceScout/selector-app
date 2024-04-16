@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <form method="POST" action="{{ route()}}"
-    </div>
+    <form method="POST" action="{{ route('players.update') }}">
+        
+    </form>
+
 </x-app-layout>
