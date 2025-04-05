@@ -38,6 +38,11 @@
                         Login
                     </x-primary-button>
                 </form>
+                <form method="GET" action="{{ url('/editor')}}" class="flex justify-center m-8">
+                    <x-primary-button class="text-4xl">
+                        Enter Editor
+                    </x-primary-button>
+                </form>
             @endauth
         @endif
     </div>

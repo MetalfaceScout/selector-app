@@ -21,7 +21,11 @@ Route::get('/', function () {
 
 Route::get('/editor', function () { 
     return view('editor');
-})->middleware(['auth'])->name('editor');
+})->name('editor');
+
+Route::get('/selector', function() {
+    return view('selector');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,6 +38,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('players', PlayerController::class);
-//Route::post('/player')
+//Route::post('/player_')
 
 require __DIR__.'/auth.php';
