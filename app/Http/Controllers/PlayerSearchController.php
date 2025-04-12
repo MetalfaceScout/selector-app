@@ -11,9 +11,9 @@ class PlayerSearchController extends Controller
 
         $playerName = $request->input('codename');
 
-        $players = LfstatsPlayer::where("player_name", "ilike", '%'+$playerName+'%');
+        $players = LfstatsPlayer::where("player_name", "ilike", '%'. $playerName . '%')->take(15)->get()->toArray();
         
-        return view('selector', ['search_players' => $players]);
+        return view('selector', ['search_player' => $players]);
 
     }
 }

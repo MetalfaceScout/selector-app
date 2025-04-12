@@ -25,7 +25,7 @@ Route::get('/editor', function () {
 
 Route::get('/selector', function() {
     return view('selector');
-});
+})->name('selector');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
