@@ -10,6 +10,9 @@
             @endisset
         </x-slot>
         <x-slot name="right">
+            <x-player-pool>
+                
+            </x-player-pool>
             Selector
         </x-slot>
     </x-selector-layout>

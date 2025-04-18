@@ -1,8 +1,8 @@
-<div>
+<div class="p-4">
     <!-- He who is contented is rich. - Laozi -->
      <form method="GET" action="{{ route('player_search') }}">
         @csrf
-        <x-input-label for="codename" :value="__('Codename')" />
+        <x-input-label for="codename" :value="__('Search Codename:')" />
         <x-text-input id="codename" class="block mt-1 w-full"
             type="text"
             name="codename"
