@@ -23,4 +23,5 @@ class LfstatsPlayer extends Model
     public function update(array $attributes = [], array $options = []) {
         throw new Exception('This is a read only model.');
     }
+
 }

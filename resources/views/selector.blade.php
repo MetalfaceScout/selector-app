@@ -5,7 +5,7 @@
             </x-player-chooser>
             @isset($search_player)
                 @foreach ($search_player as $player)
-                    <x-player-card codename="{{ $player['player_name'] }}"/>
+                    <x-player-card codename="{{ $player['player_name'] }}" id="{{ $player['id'] }}"/>
                 @endforeach
             @endisset
         </x-slot>
