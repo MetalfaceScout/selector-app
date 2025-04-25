@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Http\Controllers\PlayerPoolController;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

@@ -13,10 +13,11 @@ class PlayerPoolController extends Controller
 
         $player = \App\Models\LfstatsPlayer::find($id);
         $player_pool = Session::get("player_pool", []);
+        
         $player_pool[] = $player;
         Session::put("player_pool", $player_pool);
 
-        return view('selector', ['player_pool' => $player_pool]);
+        return true;
     
     }
 
@@ -31,7 +32,6 @@ class PlayerPoolController extends Controller
             $player_pool = [];
         }
 
-        return view('selector', ['player_pool' => $player_pool]);
+        return $player_pool;
     }
-
 }

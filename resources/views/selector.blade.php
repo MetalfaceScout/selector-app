@@ -10,7 +10,7 @@
             @endisset
         </x-slot>
         <x-slot name="right">
-            <x-player-pool>
+            <x-player-pool :playerpool=$player_pool>
                 
             </x-player-pool>
             Selector

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SelectorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlayerSearchController;
@@ -20,6 +21,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/player_search', [PlayerSearchController::class,'search'])->name('player_search');
-
-Route::post('/add_player_to_pool/{id}', [PlayerPoolController::class, 'add'])->name('add_player_to_pool');
