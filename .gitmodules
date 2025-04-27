@@ -1,0 +1,3 @@
+[submodule "selector-backend"]
+	path = selector-backend
+	url = git@github.com:MetalfaceScout/selector-backend.git
