@@ -5,5 +5,6 @@
         <x-player-card codename="{{ $player['player_name'] }}">
 
         </x-player-card>
+        <x-remove-player-button id="{{ $player['id'] }}" />
     @endforeach
 </div>

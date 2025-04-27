@@ -41,7 +41,17 @@ class SelectorController extends Controller
         return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
     }
 
-    public function remove_player_from_pool(Request $request) {
+    public function remove_player_from_pool(Request $request, $id) {
+        $this->PlayerPoolController->remove( $id );
+        $player_pool = $this->PlayerPoolController->get();
+
+        return view('selector', ['search_player' => [], 'player_pool'=> $player_pool]);
+    }
+
+    public function select(Request $request) {
+        $player_pool = $this->PlayerPoolController->get();
+
 
     }
+
 }

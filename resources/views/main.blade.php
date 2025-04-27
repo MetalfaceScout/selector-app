@@ -38,9 +38,9 @@
                         Login
                     </x-primary-button>
                 </form>
-                <form method="GET" action="{{ url('/editor')}}" class="flex justify-center m-8">
+                <form method="GET" action="{{ url('/selector')}}" class="flex justify-center m-8">
                     <x-primary-button class="text-4xl">
-                        Enter Editor
+                        Enter Selector
                     </x-primary-button>
                 </form>
             @endauth
