@@ -17,7 +17,7 @@
                 
             </x-player-pool>
             <div>
-                <form method="POST" action="{{ route('send_selection') }}">
+                <form method="GET" action="{{ route('send_selection') }}">
                     <label for="mode_selection">Selection Mode</label>
                     <select name="mode_selection" id="mode_selection">
                         <option value="12_players">12 Players</option>
@@ -25,6 +25,13 @@
                         <option value="8_players_queen_bee">Queen Bee</option>
                         <option value="14_players">14 Players</option>
                     </select>
+
+                    <label for="algorithm_selection">Selection Algorithm</label>
+                    <select name="algorithm_selection">
+                        <option value="advanced_selection">Advanced Selection</option>  
+                    </select>
+
+                    <x-primary-button type="submit">Send Selection</x-primary-button>   
                 </form>
             </div>
         </x-slot>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\PlayerPoolController;
 use App\Models\LfstatsPlayer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Process;
 
 class SelectorController extends Controller
 {
@@ -51,7 +52,14 @@ class SelectorController extends Controller
     public function select(Request $request) {
         $player_pool = $this->PlayerPoolController->get();
 
+        $all = $request->all();
 
+
+
+        $team_result = Process::path(base_path())->run('selector-backend/target/debug/selector-backend');
+
+        dd($team_result->errorOutput());
+
+        return view('results', ['team_1' => $team_1, 'team_2' => $team_2]);
     }
-
 }
