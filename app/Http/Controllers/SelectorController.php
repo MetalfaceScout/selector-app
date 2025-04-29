@@ -50,16 +50,42 @@ class SelectorController extends Controller
     }
 
     public function select(Request $request) {
+
         $player_pool = $this->PlayerPoolController->get();
+        $args = $request->all();
 
-        $all = $request->all();
+        $process = [
+            '/usr/local/bin/selector-backend'
+        ];
 
+        $process_c = collect($process);
 
+        $pool_c = collect($player_pool);
 
-        $team_result = Process::path(base_path())->run('selector-backend/target/debug/selector-backend');
+        $pool_c->each( fn($item) => 
+            $process_c->push("-p" . $item['id'])
+        );
 
-        dd($team_result->errorOutput());
+        /* $args_c = collect($args);
+        $args_c->each( fn($item) =>
+            $process_c->push($item)
+        );
+        
+        dd($process_c); */
+    
+        $team_result = Process::run($process_c->toArray());
 
-        return view('results', ['team_1' => $team_1, 'team_2' => $team_2]);
+        $team_1 = [];
+        $team_2 = [];
+
+        $output_data = json_decode($team_result->output());
+
+        dd($output_data, $team_result->errorOutput());
+
+        return view('results', [
+            'team_1' => $team_1,
+            'team_2' => $team_2,
+            'error' => $team_result->errorOutput(),
+        ]);
     }
 }
