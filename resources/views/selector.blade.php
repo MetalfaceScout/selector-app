@@ -6,7 +6,7 @@
             @isset($search_player)
                 @foreach ($search_player as $player)
                 <div class="flex border rounded-sm">
-                    <x-player-card codename="{{ $player['player_name'] }}"/>
+                    <x-player-card codename="{{ $player['player_name'] }}" last_center_name="{{ $player['last_center_name'] }}"/>
                     <x-add-player-button id="{{ $player['id'] }}"/>
                 </div>
                 @endforeach
