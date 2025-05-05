@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LfstatsPlayer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -34,12 +35,22 @@ class PlayerPoolController extends Controller
     }
 
     public function add_newbie($name) {
-        $player_pool_newbie = Session::get("player_pool_newbie", []);
+        $player_pool_newbie = Session::get("player_pool", []);
 
         $duplicate = false;
 
+        $newbie = [
+            'player_name' => $name,
+            'id' => hash('sha256',$name),
+            'last_center_name' => "N/A",
+            'newbie' => true,
+        ];
+
+        $newbie_c = new LfstatsPlayer;
+        $newbie_c->fill($newbie);
+
         for ($i = 0; $i < count($player_pool_newbie); $i++) {
-            if ($player_pool_newbie[$i] == $name) {
+            if ($player_pool_newbie[$i]->player_name == $name) {
                 $duplicate = true;
             }
         }
@@ -48,8 +59,8 @@ class PlayerPoolController extends Controller
             return false;
         }
 
-        $player_pool_newbie[] = $name;
-        Session::put("player_pool_newbie", $player_pool_newbie);
+        $player_pool_newbie[] = $newbie_c;
+        Session::put("player_pool", $player_pool_newbie);
 
         return true;
     }
@@ -72,24 +83,6 @@ class PlayerPoolController extends Controller
         return false;
     }
 
-    public function remove_newbie($name) {
-        $player_pool = Session::get("player_pool_newbie", []);
-
-        if (empty($player_pool)) {
-            return false;
-        }
-
-        for ($i = 0; $i < count($player_pool); $i++) {
-            if ($player_pool[$i] == $name) {
-                unset($player_pool[$i]);
-                $player_pool = array_values($player_pool);
-                Session::put("player_pool_newbie", $player_pool);
-                return true;
-            }
-        }
-        return false;
-    }
-
     public function get() {
         if (Auth::user()) {
             ddd("IMPLEMENT THIS!");
@@ -104,17 +97,4 @@ class PlayerPoolController extends Controller
         return $player_pool;
     }
 
-    public function get_newbie() {
-        if (Auth::user()) {
-            ddd("IMPLEMENT THIS!");
-        } else {
-            $player_pool = Session::get("player_pool_newbie");
-        }
-
-        if (empty($player_pool)) {
-            $player_pool = [];
-        }
-
-        return $player_pool;
-    }
 }

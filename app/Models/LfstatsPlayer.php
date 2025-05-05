@@ -12,6 +12,8 @@ class LfstatsPlayer extends Model
     protected $connection = 'lfstats';
     protected $table = 'players';
 
+    protected $fillable = ['player_name', 'id', 'newbie', 'last_center_name'];
+
     public function save(array $options = []) {
         throw new Exception('This is a read only model.');
     }

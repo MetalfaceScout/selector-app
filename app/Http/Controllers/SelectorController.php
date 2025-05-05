@@ -60,12 +60,11 @@ class SelectorController extends Controller
         return view('selector', ['search_player' => [], 'player_pool'=> $player_pool]);
     }
     
-    public function add_new_player_to_pool(Request $request, $name) {
-        $this->PlayerPoolController->add_newbie($name );
-    }
+    public function add_new_player_to_pool(Request $request) {
+        $this->PlayerPoolController->add_newbie($request->name);
+        $player_pool = $this->PlayerPoolController->get();
 
-    public function remove_new_player_from_pool(Request $request, $name) {
-        $this->PlayerPoolController->remove_newbie($name);
+        return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
     }
 
     public function select(Request $request) {
@@ -105,5 +104,11 @@ class SelectorController extends Controller
             'team_2' => $team_2,
             'error' => $team_result->errorOutput(),
         ]);
+    }
+
+    public function add_team_modifier(Request $request) {
+        $player_pool = $this->PlayerPoolController->get();
+        
+
     }
 }

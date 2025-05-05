@@ -11,11 +11,25 @@
                 </div>
                 @endforeach
             @endisset
+            <form method="GET" action="{{ route('add_new_player_to_pool') }}">
+                <x-input-label for="name" :value="__('Add New Player')" />
+                <x-text-input for="name" class="block mt-1 w-full"
+                    type="text"
+                    name="name"
+                    required />
+                <x-primary-button type="submit">Add</x-primary-button>
+            </form>
+            <form method="GET" action="{{ route('add_position_modifier') }}">
+                <x-input-label for="name_select" :value="__('Player')" />
+                <select name="name_select">
+                    @foreach ($player_pool as $player)
+                        <option value="{{ $player->id }}">{{ $player->player_name }}</option>
+                    @endforeach
+                </select>
+            </form>
         </x-slot>
         <x-slot name="right">
-            <x-player-pool :playerpool=$player_pool>
-                
-            </x-player-pool>
+            <x-player-pool :playerpool=$player_pool />
             <div>
                 <form method="GET" action="{{ route('send_selection') }}">
                     <label for="mode_selection">Selection Mode</label>
