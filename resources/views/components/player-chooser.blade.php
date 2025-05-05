@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-2">
     <!-- He who is contented is rich. - Laozi -->
      <form method="GET" action="{{ route('search_player') }}">
         <x-input-label for="codename" :value="__('Search Codename:')" />

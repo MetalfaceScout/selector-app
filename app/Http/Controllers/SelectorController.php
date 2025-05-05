@@ -105,7 +105,5 @@ class SelectorController extends Controller
 
     public function add_team_modifier(Request $request) {
         $player_pool = $this->PlayerPoolController->get();
-        
-
     }
 }

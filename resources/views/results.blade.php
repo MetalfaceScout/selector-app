@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex flex-col">
         @if ($error != "")
-            <h1>
+            <h1 class="text-red-500 text-4xl m-12">
                 Error: {{ $error }}
             </h1>
         @else
