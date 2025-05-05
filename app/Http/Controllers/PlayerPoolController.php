@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\LfstatsScorecard;
+use App\Models\LfstatsCenter;
+use Illuminate\Support\Str;
 
 
 class PlayerPoolController extends Controller
@@ -21,10 +24,15 @@ class PlayerPoolController extends Controller
                 $duplicate = true;
             }
         }
+
         
         if ($duplicate) {
             return false;
         }
+
+        $last_center_id = LfstatsScorecard::where("player_id", '=' , $player->id)->latest('created')->take(1)->get();
+        $last_center = LfstatsCenter::where('id', '=', $last_center_id->first()->center_id)->get();
+        $player->last_center_name = Str::upper($last_center->first()->short_name);
 
         $player_pool[] = $player;
         Session::put("player_pool", $player_pool);

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "cloudcreativity/laravel-json-api": "^6.1",
+        "cweagans/composer-patches": "*",
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
@@ -53,6 +54,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+    "patches": {
+            "nunomaduro/termwind": {
+                "Patches issue with libxml": "./patches/termwind.patch"
+            }
         }
     },
     "config": {
@@ -60,10 +66,13 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",
     "prefer-stable": true
+    
 }
+

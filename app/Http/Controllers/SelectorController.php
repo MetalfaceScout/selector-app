@@ -38,9 +38,13 @@ class SelectorController extends Controller
         foreach ($players as $player) {
 
             $last_center_id = LfstatsScorecard::where("player_id", '=' , $player->id)->latest('created')->take(1)->get();
-            $last_center = LfstatsCenter::where('id', '=', $last_center_id->first()->center_id)->get();
+            if (isset($last_center_id->first()->center_id)) {
+                $last_center = LfstatsCenter::where('id', '=', $last_center_id->first()->center_id)->get();
+                $player->last_center_name = Str::upper($last_center->first()->short_name);
+            } else {
+                $player->last_center_name = "Unknown";
+            }
             
-            $player->last_center_name = Str::upper($last_center->first()->short_name);
         }
 
         return view('selector', ['search_player' => $players->toArray(), 'player_pool' => $player_pool]);
@@ -77,8 +81,9 @@ class SelectorController extends Controller
         ];
 
         $process_c = collect($process);
-
         $pool_c = collect($player_pool);
+
+        #$process_c->push('--output-method ' . "'json'");
 
         $pool_c->each( fn($item) => 
             $process_c->push("-p" . $item['id'])
@@ -88,21 +93,13 @@ class SelectorController extends Controller
         $args_c->each( fn($item) =>
             $process_c->push($item)
         );
-        
         dd($process_c); */
     
         $team_result = Process::run($process_c->toArray());
-
-        $team_1 = [];
-        $team_2 = [];
-
         $output_data = json_decode($team_result->output());
 
-        dd($output_data, $team_result->errorOutput());
-
         return view('results', [
-            'team_1' => $team_1,
-            'team_2' => $team_2,
+            'results' => $output_data,
             'error' => $team_result->errorOutput(),
         ]);
     }
