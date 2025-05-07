@@ -2,18 +2,21 @@
 
 namespace App\View\Components;
 
-use Illuminate\Support\Facades\Session;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Session;
 
-class SelectorLayout extends Component
+class Modifiers extends Component
 {
     /**
      * Create a new component instance.
      */
+    public $modifiers;
+
     public function __construct()
     {
+        $this->modifiers = Session::get("modifiers", []);
     }
 
     /**
@@ -21,6 +24,6 @@ class SelectorLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.selector-layout');
+        return view('components.modifiers');
     }
 }

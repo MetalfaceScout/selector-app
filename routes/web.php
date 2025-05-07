@@ -37,6 +37,7 @@ Route::post('/add_player_to_pool/{id}', [SelectorController::class, 'add_player_
 Route::post('/remove_player_from_pool/{id}', [SelectorController::class,'remove_player_from_pool'])->name('remove_player_from_pool');
 Route::get('/add_new_player_to_pool', [SelectorController::class,'add_new_player_to_pool'])->name('add_new_player_to_pool');
 Route::get('/add_position_modifier', [SelectorController::class,'add_position_modifier'])->name('add_position_modifier');
+Route::get('/clear_position_modifiers', [SelectorController::class, 'clear_position_modifiers'])->name('clear_position_modifiers');
 
 Route::get('/send_selection', [SelectorController::class,'select'])->name('send_selection');
 

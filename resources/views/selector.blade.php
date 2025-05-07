@@ -42,6 +42,9 @@
                 </div>
                 <x-primary-button type="submit">Add Modifier</x-primary-button>
             </form>
+            <x-modifiers>
+                
+            </x-modifiers>
         </x-slot>
         <x-slot name="right">
             <x-player-pool :playerpool=$player_pool />

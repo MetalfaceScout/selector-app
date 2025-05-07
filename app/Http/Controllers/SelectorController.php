@@ -9,6 +9,7 @@ use App\Models\LfstatsScorecard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Session;
 
 class SelectorController extends Controller
 {
@@ -103,7 +104,19 @@ class SelectorController extends Controller
         ]);
     }
 
-    public function add_team_modifier(Request $request) {
+    public function add_position_modifier(Request $request) {
         $player_pool = $this->PlayerPoolController->get();
+
+        $modifiers = Session::get("modifiers", []);
+        array_push($modifiers, $request->all());
+        Session::put("modifiers", $modifiers);
+
+        return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
+    }
+
+    public function clear_position_modifiers() {
+        $player_pool = $this->PlayerPoolController->get();
+        Session::forget("modifiers");
+        return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
     }
 }
