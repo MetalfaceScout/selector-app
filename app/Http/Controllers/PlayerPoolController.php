@@ -49,7 +49,7 @@ class PlayerPoolController extends Controller
 
         $newbie = [
             'player_name' => $name,
-            'id' => hash('sha256',$name),
+            'id' => number_format(hexdec(hash('sha256',$name)), 0),
             'last_center_name' => "N/A",
             'newbie' => true,
         ];
