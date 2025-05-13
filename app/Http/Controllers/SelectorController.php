@@ -89,11 +89,10 @@ class SelectorController extends Controller
             $process_c->push("-p" . $item['id'])
         );
 
-        /* $args_c = collect($args);
-        $args_c->each( fn($item) =>
-            $process_c->push($item)
-        );
-        dd($process_c); */
+        $modifiers = collect(Session::get("modifiers"));
+        $modifiers->each(function ($modifier) use ($process_c) {
+            $process_c->push('--modifier-position ' . $modifier['name_select'] . " " . $modifier['position_select']);
+        });
     
         $team_result = Process::run($process_c->toArray());
         $output_data = json_decode($team_result->output());
@@ -107,8 +106,35 @@ class SelectorController extends Controller
     public function add_position_modifier(Request $request) {
         $player_pool = $this->PlayerPoolController->get();
 
+        $modifier = $request->all();
+
         $modifiers = Session::get("modifiers", []);
-        array_push($modifiers, $request->all());
+        $player_name_ar = array_filter($player_pool,function($player) use ($modifier) {
+            return $player['id'] == $modifier['name_select'];
+        });
+        $modifier['player_name'] = reset($player_name_ar)->player_name;
+
+        switch ($modifier['position_select']) {
+            case "0":
+                $modifier["player_position"] = "Commander";
+                break;
+            case "1":
+                $modifier["player_position"] = "Heavy Weapons";
+                break;
+            case "2":
+                $modifier["player_position"] = "Scout";
+                break;
+            case "3":
+                $modifier["player_position"] = "Ammo Carrier";
+                break;
+            case "4":
+                $modifier["player_position"] = "Medic";
+                break;
+            default:
+                $modifier["player_position"] = "Unknown?";
+        }
+        
+        array_push($modifiers, $modifier);
         Session::put("modifiers", $modifiers);
 
         return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
@@ -117,6 +143,17 @@ class SelectorController extends Controller
     public function clear_position_modifiers() {
         $player_pool = $this->PlayerPoolController->get();
         Session::forget("modifiers");
+        return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
+    }
+
+    public function remove_position_modifier(Request $request, $player_id) {
+        $player_pool = $this->PlayerPoolController->get();
+
+        $modifiers = Session::get("modifiers");
+        $modifiers = array_filter($modifiers, function ($modifier) use ($player_id) {
+            return $modifier['name_select'] != $player_id;
+        });
+        Session::put("modifiers", $modifiers);
         return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
     }
 }
