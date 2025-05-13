@@ -90,6 +90,11 @@ class SelectorController extends Controller
                 $process_c->push("-p" . $item['id']);
             }
         });
+        
+        $modifiers = collect(Session::get("modifiers"));
+        $modifiers->each(function ($modifier) use ($process_c) {
+            $process_c->push('--modifier-position ' . $modifier['name_select'] . " " . $modifier['position_select']);
+        });
     
         $team_result = Process::run($process_c->toArray());
         $output_data = json_decode($team_result->output());
