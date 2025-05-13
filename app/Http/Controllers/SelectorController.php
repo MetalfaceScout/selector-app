@@ -83,15 +83,12 @@ class SelectorController extends Controller
         $process_c = collect($process);
         $pool_c = collect($player_pool);
 
-        #$process_c->push('--output-method ' . "'json'");
-
-        $pool_c->each( fn($item) => 
-            $process_c->push("-p" . $item['id'])
-        );
-
-        $modifiers = collect(Session::get("modifiers"));
-        $modifiers->each(function ($modifier) use ($process_c) {
-            $process_c->push('--modifier-position ' . $modifier['name_select'] . " " . $modifier['position_select']);
+        $pool_c->each(function ($item) use ($process_c) {
+            if (isset($item['newbie'])) {
+                $process_c->push("-n" . " " . $item['player_name']);
+            } else {
+                $process_c->push("-p" . $item['id']);
+            }
         });
     
         $team_result = Process::run($process_c->toArray());

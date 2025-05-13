@@ -1,4 +1,4 @@
-<div>
+<div class="flex flex-wrap">
     @foreach ($modifiers as $modifier)
         @if (isset($modifier['name_select']))
             <div class="border-2 flex flex-row border-zinc-500">
@@ -12,3 +12,8 @@
         @endif
     @endforeach
 </div>
+<form method="GET" action="{{ route('clear_position_modifiers') }}">
+    <x-primary-button type="submit">
+        Remove all position modifiers
+    </x-primary-button>
+</form>
