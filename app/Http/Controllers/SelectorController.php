@@ -76,6 +76,26 @@ class SelectorController extends Controller
 
         $player_pool = $this->PlayerPoolController->get();
 
+        $mode = "";
+
+        switch ($request['mode_selection']) {
+            case '10_players':
+                $mode = 'sm5-10-player';
+                break;
+            case '12_players':
+                $mode = 'sm5-12-player';
+                break;
+            case '8_players_queen_bee':
+                $mode = 'sm5-queen-bee';
+                break;
+            case '14_players':
+                $mode = 'sm5-14-player';
+                break;
+            default:
+                $mode = 'sm5-12-player';
+                break;
+        }
+
         $process = [
             '/usr/local/bin/selector-backend'
         ];
@@ -92,6 +112,9 @@ class SelectorController extends Controller
                 $process_c->push($item['id']);
             }
         });
+
+        $process_c->push("--game-type");
+        $process_c->push($mode);
         
         $modifiers = collect(Session::get("modifiers"));
         $modifiers->each(function ($modifier) use ($process_c) {
