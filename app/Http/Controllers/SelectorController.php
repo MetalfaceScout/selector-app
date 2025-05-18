@@ -85,19 +85,30 @@ class SelectorController extends Controller
 
         $pool_c->each(function ($item) use ($process_c) {
             if (isset($item['newbie'])) {
-                $process_c->push("-n" . " " . $item['player_name']);
+                $process_c->push("-n");
+                $process_c->push($item['player_name']);
             } else {
-                $process_c->push("-p" . $item['id']);
+                $process_c->push("-p");
+                $process_c->push($item['id']);
             }
         });
         
         $modifiers = collect(Session::get("modifiers"));
         $modifiers->each(function ($modifier) use ($process_c) {
-            $process_c->push('--modifier-position ' . $modifier['name_select'] . " " . $modifier['position_select']);
+            $process_c->push('--modifier-position');
+            $process_c->push($modifier['name_select']);
+            $process_c->push($modifier['position_select']);
         });
-    
+            
         $team_result = Process::run($process_c->toArray());
         $output_data = json_decode($team_result->output());
+
+        if ($team_result->errorOutput() == "" && !(isset($output_data)) ) {
+            return view('results', [
+                'results' => $output_data,
+                'error' => "Failed to parse JSON from backend - Contact Metalface if you're seeing this.",
+            ]);
+        }
 
         return view('results', [
             'results' => $output_data,
