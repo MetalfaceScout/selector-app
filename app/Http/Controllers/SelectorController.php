@@ -118,9 +118,15 @@ class SelectorController extends Controller
         
         $modifiers = collect(Session::get("modifiers"));
         $modifiers->each(function ($modifier) use ($process_c) {
-            $process_c->push('--modifier-position');
-            $process_c->push($modifier['name_select']);
-            $process_c->push($modifier['position_select']);
+            if ($modifier['newbie'] == true) {
+                $process_c->push('--modifier-position-new');
+                $process_c->push($modifier['player_name']);
+                $process_c->push($modifier['position_select']);
+            } else {
+                $process_c->push('--modifier-position');
+                $process_c->push($modifier['name_select']);
+                $process_c->push($modifier['position_select']);
+            }
         });
             
         $team_result = Process::run($process_c->toArray());
@@ -146,9 +152,16 @@ class SelectorController extends Controller
 
         $modifiers = Session::get("modifiers", []);
         $player_name_ar = array_filter($player_pool,function($player) use ($modifier) {
-            return $player['id'] == $modifier['name_select'];
+            if ($player['id'] == $modifier['name_select']) {
+                return true;
+            }
+            return false;
         });
         $modifier['player_name'] = reset($player_name_ar)->player_name;
+
+        if (isset(reset($player_name_ar)->newbie)) {
+            $modifier['newbie'] = true;
+        }
 
         switch ($modifier['position_select']) {
             case "0":
