@@ -11,7 +11,7 @@
                     <div class="flex justify-between border-double border-2">
                         <p class="my-4 mx-9 font-bold text-zinc-100 text-4xl">Player</p>
                         <p class="my-4 mx-9 font-bold text-zinc-100 text-4xl">Position</p>
-                        <p class="my-4 mx-9 font-bold text-zinc-100 text-4xl">SMVP</p>
+                        <p class="my-4 mx-9 font-bold text-zinc-100 text-4xl">MVP</p>
                     </div>
                     @foreach ($team as $player)
                         <div class="flex justify-between border-double border-2">

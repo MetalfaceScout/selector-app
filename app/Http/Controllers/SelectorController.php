@@ -118,7 +118,7 @@ class SelectorController extends Controller
         
         $modifiers = collect(Session::get("modifiers"));
         $modifiers->each(function ($modifier) use ($process_c) {
-            if ($modifier['newbie'] == true) {
+            if (isset($modifier['newbie'])) {
                 $process_c->push('--modifier-position-new');
                 $process_c->push($modifier['player_name']);
                 $process_c->push($modifier['position_select']);
