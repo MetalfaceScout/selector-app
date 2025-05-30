@@ -14,7 +14,7 @@
             <div class="p-2">
                 <form method="GET" action="{{ route('add_new_player_to_pool') }}">
                     <x-input-label for="name" :value="__('Add New Player')" />
-                    <x-text-input for="name" class="block mt-1 w-full"
+                    <x-text-input for="name" class="mt-1 md:w-2/3 lg:w-auto"
                         type="text"
                         name="name"
                         required />
