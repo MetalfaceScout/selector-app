@@ -59,10 +59,14 @@
                             <option value="14_players">14 Players</option>
                         </select>
                     </div>
+                    <x-center-chooser>
+            
+                    </x-center-chooser>
                     <div>
                         <x-input-label for="algorithm_selection">Selection Algorithm</x-input-label>
                         <select name="algorithm_selection">
-                            <option value="advanced_selection">Advanced Selection</option>  
+                            <option value="advanced-selection">Advanced Selection</option> 
+                            <option value="random-random">Random-Random</option>
                         </select>
 
                         <x-primary-button type="submit">Send Selection</x-primary-button>

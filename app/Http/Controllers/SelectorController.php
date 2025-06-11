@@ -128,11 +128,17 @@ class SelectorController extends Controller
                 $process_c->push($modifier['position_select']);
             }
         });
+
+        $process_c->push("-c");
+        $process_c->push($request->center_select);
+
+        $process_c->push("-a");
+        $process_c->push($request->algorithm_selection);
             
         $team_result = Process::run($process_c->toArray());
         $output_data = json_decode($team_result->output());
 
-        if ($team_result->errorOutput() == "" && !(isset($output_data)) ) {
+        if ($team_result->errorOutput() == "" && !isset($output_data) ) {
             return view('results', [
                 'results' => $output_data,
                 'error' => "Failed to parse JSON from backend - Contact Metalface if you're seeing this.",
