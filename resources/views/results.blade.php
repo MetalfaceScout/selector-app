@@ -20,9 +20,12 @@
                             <h class="my-4 mx-9 dark:text-zinc-100 text-2xl">{{ number_format($player->smvp, 1) }}</h>
                         </div>
                     @endforeach
+                    <div class="flex justify-between border-double border-2">
+                        <p class="my-4 mx-9 dark:text-zinc-100 text-2xl">{{}}</p>
+                    </div>
                 </div>
             @endforeach
             </div>
         @endif
-    </d>
+    </div>
 </x-app-layout>

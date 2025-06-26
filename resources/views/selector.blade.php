@@ -48,31 +48,7 @@
         </x-slot>
         <x-slot name="right">
             <x-player-pool :playerpool=$player_pool />
-            <div>
-                <form class='flex flex-wrap' method="GET" action="{{ route('send_selection') }}">
-                    <div>
-                        <x-input-label for="mode_selection">Selection Mode</x-input-label>
-                        <select name="mode_selection" id="mode_selection">
-                            <option value="12_players">12 Players</option>
-                            <option value="10_players">10 Players</option>
-                            <option value="8_players_queen_bee">Queen Bee</option>
-                            <option value="14_players">14 Players</option>
-                        </select>
-                    </div>
-                    <x-center-chooser>
-            
-                    </x-center-chooser>
-                    <div>
-                        <x-input-label for="algorithm_selection">Selection Algorithm</x-input-label>
-                        <select name="algorithm_selection">
-                            <option value="advanced-selection">Advanced Selection</option> 
-                            <option value="random-random">Random-Random</option>
-                        </select>
-
-                        <x-primary-button type="submit">Send Selection</x-primary-button>
-                    </div>
-                </form>
-            </div>
+            <x-selector-submit/>
         </x-slot>
     </x-selector-layout>
 </x-app-layout>

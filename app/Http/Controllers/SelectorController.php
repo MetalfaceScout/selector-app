@@ -34,7 +34,7 @@ class SelectorController extends Controller
         $player_pool = $this->PlayerPoolController->get();
 
         $playerName = $request->input('codename');
-        $players = LfstatsPlayerName::where("player_name", "ilike", '%'. $playerName . '%')->take(5)->get();
+        $players = LfstatsPlayerName::where("player_name", "ilike", '%'.$playerName.'%')->take(10)->get();
 
         foreach ($players as $player) {
 
@@ -77,6 +77,10 @@ class SelectorController extends Controller
         $player_pool = $this->PlayerPoolController->get();
 
         $mode = "";
+
+        Session::put("position_select_last", $request['mode_selection']);
+        Session::put("algorithm_select_last", $request['algorithm_selection']);
+        Session::put("center_select_last", $request['center_select']);
 
         switch ($request['mode_selection']) {
             case '10_players':
@@ -147,6 +151,7 @@ class SelectorController extends Controller
 
         return view('results', [
             'results' => $output_data,
+            'totals' => null,
             'error' => $team_result->errorOutput(),
         ]);
     }

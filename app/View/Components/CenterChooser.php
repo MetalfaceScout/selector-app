@@ -9,6 +9,8 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
+use Session;
+
 class CenterChooser extends Component
 {
     /**
@@ -16,6 +18,7 @@ class CenterChooser extends Component
      */
 
     public $centers;
+    public $center_select;
 
     public function __construct()
     {
@@ -25,6 +28,8 @@ class CenterChooser extends Component
             $c = $c->sortByDesc('ipl_id');
             return $c;
         });
+
+        $this->center_select = Session::get("center_select_last", "");
     }
 
     /**
