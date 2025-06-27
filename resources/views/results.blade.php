@@ -6,7 +6,7 @@
             </h1>
         @else
             <div class="flex flex-wrap justify-center content-center">
-            @foreach ($results as $team)
+            @foreach ($results->teams as $team)
                 <div class="flex-col">
                     <div class="flex justify-between border-double border-2">
                         <p class="my-4 mx-9 font-bold dark:text-zinc-100 text-4xl">Player</p>
@@ -21,7 +21,7 @@
                         </div>
                     @endforeach
                     <div class="flex justify-between border-double border-2">
-                        <p class="my-4 mx-9 dark:text-zinc-100 text-2xl">{{}}</p>
+                        <p class="w-full text-center my-4 mx-9 font-bold dark:text-zinc-100 text-2xl">Team Average MVP: {{ number_format($results->totals[$loop->index], 1) }}</p>
                     </div>
                 </div>
             @endforeach
