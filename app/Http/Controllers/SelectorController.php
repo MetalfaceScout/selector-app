@@ -34,7 +34,7 @@ class SelectorController extends Controller
         $player_pool = $this->PlayerPoolController->get();
 
         $playerName = $request->input('codename');
-        $players = LfstatsPlayerName::where("player_name", "ilike", '%'.$playerName.'%')->take(10)->get();
+        $players = LfstatsPlayerName::where("player_name", "ILIKE", "%$playerName%")->take(10)->get();
 
         foreach ($players as $player) {
 

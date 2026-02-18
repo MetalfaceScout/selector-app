@@ -4,13 +4,26 @@
             <x-player-chooser>
             </x-player-chooser>
             @isset($search_player)
-                @foreach ($search_player as $player)
-                <div class="flex w-fit border rounded-sm sm:flex-row md:flex-col lg:flex-row">
-                    <x-player-card codename="{{ $player['player_name'] }}" last_center_name="{{ $player['last_center_name'] }}"/>
-                    <x-add-player-button id="{{ $player['id'] }}"/>
+                <div id="source-player-list" class="space-y-2"> 
+                    @foreach ($search_player as $player)
+                    <div class="player-card-item flex w-fit border rounded-sm sm:flex-row md:flex-col lg:flex-row cursor-move" 
+                         data-id="{{ $player['id'] }}">
+                        
+                        <x-player-card codename="{{ $player['player_name'] }}" last_center_name="{{ $player['last_center_name'] }}"/>
+                        <x-add-player-button id="{{ $player['id'] }}"/>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             @endisset
+            <div id="source-player-list" class="space-y-2"> 
+                <div class="player-card-item flex w-fit border rounded-sm sm:flex-row md:flex-col lg:flex-row cursor-move" 
+                    data-id="0">
+                            
+                    <x-player-card codename="Sample Codename" last_center_name="SMP"/>
+                    <x-add-player-button id="0"/>
+                </div>
+            </div>  
+
             <div class="p-2">
                 <form method="GET" action="{{ route('add_new_player_to_pool') }}">
                     <x-input-label for="name" :value="__('Add New Player')" />
@@ -52,3 +65,19 @@
         </x-slot>
     </x-selector-layout>
 </x-app-layout>
+
+<script>
+    addEventListener('DOMContentLoaded', function() {
+
+        let searchList = document.getElementById('source-player-list');
+        if (searchList) {
+            new Sortable(searchList, {
+                group: 'shared',
+                animation: 150,
+                sort: false
+            });
+        }
+
+        let poolList = document.getElementById('player-pool-list');
+    });
+</script>
