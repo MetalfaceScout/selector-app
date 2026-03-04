@@ -1,0 +1,17 @@
+{
+    "_hash": "60123ed51538172be344516074cf56d28de4b8d373bdeff3ec3ffe011fddc67b",
+    "patches": {
+        "nunomaduro/termwind": [
+            {
+                "package": "nunomaduro/termwind",
+                "description": "Patches issue with libxml",
+                "url": "./patches/termwind.patch",
+                "sha256": "7b346b206f1ce632ed5aa131187801bdf722c8ae89ef03bd17bacbc1790fb474",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}
