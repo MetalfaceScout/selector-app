@@ -25,7 +25,7 @@ class SelectorController extends Controller
 
         $player_pool = $this->PlayerPoolController->get();
 
-        return view('selector', ['search_player' => [], 'player_pool' => $player_pool]);
+        return view('selectornew', ['search_player' => [], 'player_pool' => $player_pool]);
     }
 
     // Search for a player.

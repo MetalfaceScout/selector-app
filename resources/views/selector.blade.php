@@ -61,23 +61,10 @@
         </x-slot>
         <x-slot name="right">
             <x-player-pool :playerpool=$player_pool />
+            <div id="player-pool-list">
+                
+            </div>
             <x-selector-submit/>
         </x-slot>
     </x-selector-layout>
 </x-app-layout>
-
-<script>
-    addEventListener('DOMContentLoaded', function() {
-
-        let searchList = document.getElementById('source-player-list');
-        if (searchList) {
-            new Sortable(searchList, {
-                group: 'shared',
-                animation: 150,
-                sort: false
-            });
-        }
-
-        let poolList = document.getElementById('player-pool-list');
-    });
-</script>
