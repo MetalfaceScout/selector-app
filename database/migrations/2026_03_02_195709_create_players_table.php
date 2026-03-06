@@ -18,9 +18,7 @@ return new class extends Migration
 
             $table->string('zone')->default('player-pool');
 
-            $table->string('team'); // To be used by team board
-
-            $table->integer('slot');
+            $table->integer('slot')->default(-1);
 
             $table->integer('user_id')->default(0);
 

@@ -34,15 +34,18 @@ class TeamBoard extends Component
         ]
     ];
 
+    public function mount() {
+        $this->loadPlayers();
+    }
+
     #[On('player-moved')]
     public function loadPlayers()
     {
         $teams = array_keys($this->teamConfigs[$this->gameType]);
 
         $this->players = Player::whereIn('zone', $teams)
-                            ->get()
-                            ->groupBy('zone')
-                            ->toArray(); 
+                            
+                            ->get(); 
     }
 
     public function handleSlotDrop($playerId, $targetSlot, $targetZone)
@@ -64,9 +67,18 @@ class TeamBoard extends Component
                 $existingPlayer->zone = $incomingPlayer->zone;
             }
 
-            $incomingPlayer->slot = $targetSlot;
-            $incomingPlayer->zone = $targetZone;
         }
+
+        // Move the player into the slot
+        $incomingPlayer->slot = $targetSlot;
+        $incomingPlayer->zone = $targetZone;
+
+        $incomingPlayer->save();
+        
+        $this->dispatch("player-moved");
+
+        $this->loadPlayers();
+
     }
 
     public function render()
