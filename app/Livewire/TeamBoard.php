@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Player;
 use Livewire\Component;
 
 class TeamBoard extends Component
@@ -44,7 +45,7 @@ class TeamBoard extends Component
                             ->toArray(); 
     }
 
-    public function handleSlotDrop($playerId, $targetSlot)
+    public function handleSlotDrop($playerId, $targetSlot, $targetZone)
     {
         $playerIdAsInt = (Int) trim($playerId);
         $incomingPlayer = Player::find($playerIdAsInt);
@@ -52,16 +53,19 @@ class TeamBoard extends Component
         // Is there a player there?
         if ($incomingPlayer) {
             $existingPlayer = Player::where(
-                'zone', $zoneId
+                'zone', 
             )->where(
                 'slot', $targetSlot
             )->first();
 
-            //Swap
+            //Swap if existing player
             if ($existingPlayer) {
                 $existingPlayer->slot = $incomingPlayer->slot;
                 $existingPlayer->zone = $incomingPlayer->zone;
             }
+
+            $incomingPlayer->slot = $targetSlot;
+            $incomingPlayer->zone = $targetZone;
         }
     }
 
@@ -69,8 +73,4 @@ class TeamBoard extends Component
     {
         return view('livewire.team-board');
     }
-}
-
-class Slot {
-
 }
