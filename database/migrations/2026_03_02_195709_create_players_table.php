@@ -22,7 +22,17 @@ return new class extends Migration
 
             $table->integer('user_id')->default(0);
 
-            $table->integer('order')->default(0);
+            $table->float('commander_mvp')->default(4);
+
+            $table->float('heavy_mvp')->default(4);
+
+            $table->float('scout_mvp')->default(4);
+
+            $table->float('ammo_mvp')->default(4);
+
+            $table->float('medic_mvp')->default(4); 
+        
+            $table->integer('lfstats_id')->default(-1);
             
             $table->timestamps();
         });

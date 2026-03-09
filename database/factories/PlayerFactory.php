@@ -20,8 +20,7 @@ class PlayerFactory extends Factory
             'codename' => $this->faker->unique()->userName(),
 
             'zone' => 'player-pool',
-
-            'player_id' => 0,
+            
         ];
     }
 }

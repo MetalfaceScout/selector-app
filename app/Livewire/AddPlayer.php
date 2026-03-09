@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Player;
+use Auth;
 
 class AddPlayer extends Component
 {
@@ -17,6 +18,7 @@ class AddPlayer extends Component
 
         Player::create([
             'codename' => $this->codename,
+            'user_id' => Auth::user()->id,
         ]);
 
         $this->reset('codename');

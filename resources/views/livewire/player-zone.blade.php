@@ -1,10 +1,11 @@
 <div
-    ondragover="event.preventDefault()"
-    ondrop="
-        event.preventDefault();
-        let playerId = event.dataTransfer.getData('text/plain');
-        @this.call('handleDrop', playerId);
+    @dragover.prevent
+
+    @drop.prevent="
+        let playerId = $event.dataTransfer.getData('text/plain');
+        $wire.handleDrop(playerId);
     "
+    class="h-1/2 border-2 border-dashed rounded-lg dark:border-zinc-600"
 >
     {{-- The whole world belongs to you. --}}
     <h3 class="dark:text-zinc-100">
@@ -13,9 +14,7 @@
 
     <div>
         @foreach($players as $player)
-            <div wire:key="player-{{ $player->id }}">
-                <x-player-card :player="$player" />
-            </div>
+            <x-player-card :player="$player" />
         @endforeach
     </div>
 </div>
