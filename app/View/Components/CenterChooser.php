@@ -24,9 +24,7 @@ class CenterChooser extends Component
     {
         // Cache all centers for a week
         $this->centers = Cache::remember('users', $seconds = 604800, function () {
-            $c = LfstatsCenter::all();
-            $c = $c->sortByDesc('ipl_id');
-            return $c;
+            return collect([]);
         });
 
         $this->center_select = Session::get("center_select_last", "");

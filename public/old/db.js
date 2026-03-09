@@ -1,5 +1,0 @@
-class jsonDB {
-    constructor (filename) {
-        
-    }
-}

@@ -27,20 +27,15 @@
     <div class="">
         @if (Route::has('login'))
             @auth
-                <form method="GET" action="{{ url('/editor')}}" class="flex justify-center m-8">
+                <form method="GET" action="{{ url('/selector')}}" class="flex justify-center m-8">
                     <x-primary-button class="text-4xl">
-                        Enter Editor
+                        Enter Selector
                     </x-primary-button>
                 </form>
             @else
                 <form method="GET" action="{{ url('login') }}" class="flex justify-center m-8">
                     <x-primary-button class="text-4xl">
                         Login
-                    </x-primary-button>
-                </form>
-                <form method="GET" action="{{ url('/selector')}}" class="flex justify-center m-8">
-                    <x-primary-button class="text-4xl">
-                        Enter Selector
                     </x-primary-button>
                 </form>
             @endauth
