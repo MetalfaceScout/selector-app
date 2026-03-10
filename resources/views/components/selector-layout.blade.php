@@ -11,7 +11,7 @@
                     {{ $middle }}
                 </div>
 
-                <div class="w-full lg:w-1/3 px-4">
+                <div class="w-full lg:w-auto px-4">
                     {{ $right }}
                 </div>
 

@@ -31,6 +31,27 @@
             <main>
                 {{ $slot }}
             </main>
+            
+        </div>
+        <div 
+            x-data="{ 
+                show: false, 
+                message: '',
+                init() {
+                    window.addEventListener('show-error-toast', (event) => {
+                        this.message = event.detail.message; 
+                        this.show = true; 
+                        setTimeout(() => { 
+                            this.show = false; 
+                        }, 3000);
+                    });
+                }
+            }"
+            x-show="show"
+            x-transition.opacity.duration.300ms
+            class="fixed bottom-4 right-4 z-[9999] bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg font-semibold pointer-events-none"
+        >
+            <span x-text="message"></span>
         </div>
     </body>
 </html>

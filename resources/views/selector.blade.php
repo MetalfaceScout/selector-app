@@ -8,7 +8,10 @@
             <livewire:player-zone zone-name="Bench" zone-id="bench" />
         </x-slot>
         <x-slot name="right">
-            <livewire:team-board />
+            <div>
+                <livewire:team-board />
+                <livewire:matchmaker />
+            </div>
         </x-slot>
     </x-selector-layout>    
 </x-app-layout>

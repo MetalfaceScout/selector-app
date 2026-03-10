@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\ManagesPlayers;
 use App\Models\Player;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -9,48 +10,8 @@ use Auth;
 
 class TeamBoard extends Component
 {
-
-    public $gameType = 'sm5-6v6';
-
+    use ManagesPlayers;
     public $players = [];
-
-    public $teamConfigs = 
-    [
-        'sm5-6v6' => [
-            'red' => [
-                0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
-                1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                2 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                3 => ['id'=> 3, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 4, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 5, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
-            ],
-            'blue' => [
-                0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
-                1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                2 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                3 => ['id'=> 3, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 4, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 5, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
-            ]
-        ],
-        'sm5-5v5' => [
-            'red' => [
-                0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
-                1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                3 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
-            ],
-            'blue' => [
-                0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
-                1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                3 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
-            ]
-        ],
-    ];
 
     public function mount() {
         $this->loadPlayers();
