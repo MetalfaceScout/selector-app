@@ -93,11 +93,13 @@ class TeamBoard extends Component
 
         }
 
-        // Move the player into the slot
-        $incomingPlayer->slot = $targetSlot;
-        $incomingPlayer->zone = $targetZone;
+        if ($incomingPlayer) {
+            // Move the player into the slot
+            $incomingPlayer->slot = $targetSlot;
+            $incomingPlayer->zone = $targetZone;
+            $incomingPlayer->save();
+        }
 
-        $incomingPlayer->save();
         
         $this->dispatch("player-moved");
 

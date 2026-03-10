@@ -1,4 +1,4 @@
-<?php // app/Livewire/Traits/ManagesPlayers.php
+<?php
 
 namespace App\Livewire\Traits;
 
@@ -21,5 +21,11 @@ trait ManagesPlayers
         $player = Player::find($playerId);
         //not implemented
         
+    }
+
+    public function removePlayer($playerId) {
+        $player = Player::find($playerId);
+        $player->delete();
+        $this->dispatch('player-moved');
     }
 }

@@ -3,11 +3,11 @@
 <div 
     draggable="true"
     ondragstart="event.dataTransfer.setData('text/plain', '{{ $player->id }}')"
-    class="p-4 relative border rounded shadow cursor-grab active:cursor-grabbing w-fit bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700"
+    class="p-4 relative border rounded shadow cursor-grab active:cursor-grabbing w-fit h-fit bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700"
 >
     <div class="flex justify-between items-start">
         <div class="px-2">
-            <p class="font-medium text-gray-800 dark:text-zinc-200">{{ $player->codename }}</p>
+            <p class="font-medium text-gray-800 dark:text-zinc-200 whitespace-nowrap">{{ $player->codename }}</p>
         </div>
 
         <div x-data="{ 
@@ -99,6 +99,13 @@
                             class="my-2 px-3 py-1 text-xs font-semibold"
                         >
                             Lfstats Update
+                        </x-secondary-button>
+
+                        <x-secondary-button 
+                            @click.="$wire.removePlayer({{ $player->id }}); open = false"
+                            class="my-2 px-3 py-1 text-xs font-semibold"
+                        >
+                            Delete Player
                         </x-secondary-button>
                         
                     </div>

@@ -12,7 +12,7 @@
         {{ $zoneName }}
     </h3>
 
-    <div>
+    <div class="flex flex-wrap justify-evenly items-center gap-y-2">
         @foreach($players as $player)
             <x-player-card :player="$player" />
         @endforeach

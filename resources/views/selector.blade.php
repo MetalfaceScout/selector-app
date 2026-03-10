@@ -3,7 +3,7 @@
         <x-slot name="left">
             <livewire:add-player />
         </x-slot>
-        <x-slot name="middle" class="flex flex-row">
+        <x-slot name="middle">
             <livewire:player-zone zone-name="Player Pool" zone-id="player-pool" />
             <livewire:player-zone zone-name="Bench" zone-id="bench" />
         </x-slot>
