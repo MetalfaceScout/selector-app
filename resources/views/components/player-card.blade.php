@@ -29,7 +29,7 @@
 
             <div x-show="open" @click.outside="open = false" style="display: none;" class="absolute right-0 z-10 w-48 mt-1 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-md shadow-lg overflow-hidden">
                 <div class="p-3">
-                    <label class="block text-xs text-gray-500 dark:text-gray-300 uppercase mb-2">Set MVP Score</label>
+                    <label class="block text-xs text-zinc-500 dark:text-zinc-300 uppercase mb-2">Set MVP Score</label>
                     
                     <div class="flex flex-col items-center">
                         <div class="flex items-center space-x-1">
@@ -93,6 +93,22 @@
                                 class="w-full px-2 py-1 text-sm border border-gray-300 dark:border-zinc-500 rounded bg-white dark:bg-zinc-800 text-gray-800 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             >
                         </div>
+
+                        <h1 class="block text-xs text-zinc-500 dark:text-zinc-300 uppercase mb-2">POSITION LOCK</h1>
+                        <select
+                            wire:change="updateModifier({{ $player->id }}, $event.target.value)"
+                            class="border p-2 rounded"
+                        >
+                            <option value="" @selected($player->modifier === '')>None</option>
+                            <option value="3hit" @selected($player->modifier === '3hit')>3 Hit</option>
+                            <option value="1hit" @selected($player->modifier === '1hit')>1 Hit</option>
+                            <option value="resupply" @selected($player->modifier == 'resupply')>Resupply</option>
+                            <option value="commander" @selected($player->modifier == 'commander')>Commander</option>
+                            <option value="heavy" @selected($player->modifier == 'heavy')>Heavy</option>
+                            <option value="scout" @selected($player->modifier == 'scout')>Scout</option>
+                            <option value="ammo" @selected($player->modifier == 'ammo')>Ammo</option>
+                            <option value="medic" @selected($player->modifier == 'medic')>Medic</option>
+                        </select>
 
                         <x-secondary-button 
                             @click.="$wire.updateFromLfstats({{ $player->id }}, lfstats_id); open = false"

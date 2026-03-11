@@ -82,4 +82,10 @@ trait ManagesPlayers
         }
         return $count;
     }
+
+    public function updateModifier($playerId, $modifier) {
+        $player = Player::find($playerId);
+        $player->modifier = $modifier;
+        $player->save();
+    }
 }

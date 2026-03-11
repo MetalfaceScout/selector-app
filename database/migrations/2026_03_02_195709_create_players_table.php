@@ -22,6 +22,8 @@ return new class extends Migration
 
             $table->integer('user_id')->default(0);
 
+            $table->string('modifier')->default('');
+
             $table->float('commander_mvp')->default(4);
 
             $table->float('heavy_mvp')->default(4);

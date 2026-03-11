@@ -31,8 +31,108 @@ class Matchmaker extends Component
         return $players;
     }
 
+    private $modifierTable = [
+        '3hit' => [0, 1],
+        '1hit' => [2, 3, 4, 5],
+        'resupply' => [4, 5],
+        'commander' => [0],
+        'heavy' => [1],
+        'scout'=> [2,3],
+        'ammo'=> [4],
+        'medic'=> [5],
+    ];
+
     public function matchmake() {
-        $this->dispatch('show-error-toast', message: 'This feature is not ready yet!');
+
+        // Get all players
+        // Assign Modifiers
+        // Fill best match based on assigned modifiers
+        // Random select empty positions
+        // Fill best match on last empty
+        // Could be easier on python???
+    
+        $allTeams = array_keys($this->teamConfigs[$this->gameType]);
+
+        $players = $this->returnAllToPool(0);
+        
+        // Assign modifiers - Grab modifier players until there are none left or we are unable to assign a modifier due to full slots
+
+        // Grab all the players that have active modifiers -> then sort them based on that modifier.
+        // Assign single choice positions first -> then multi choice starting with resup
+        $playerArray = $players->where('modifier', '!=' ,'')
+            ->sortBy(function ($player) {
+                switch ($player->modifier) {
+                    case 'commander':
+                    case 'heavy':
+                    case 'scout':
+                    case 'ammo':
+                    case 'medic':
+                        return random_int(0,4);
+                    case 'resupply':
+                        return 5;
+                    case '1hit':
+                        return 6;
+                    case '3hit':
+                        return 7;
+                }
+        });
+
+        while ($playerArray->count() > 0) {
+            $player = $playerArray->first();
+        
+            $slots = collect($this->modifierTable[$player->modifier]);
+            $slotFilled = false;
+            while (!$slotFilled) {
+                // Choose a slot from the array e.g. 3 hit -> [0, 1]
+                try {
+                    $chosenSlot = $slots->random();
+                    $slots->forget($chosenSlot);
+                } catch (\Throwable $th) {
+                    // If we can't choose a slot that means that we've exhausted our options and we must return
+                    $this->dispatch('show-error-toast', message: "Not enogh slots");
+                    return;
+                }
+
+                // Get all the teams available
+
+                $teams = collect($allTeams);
+                // Any slots available based on filled slots? If there is a player, remove it from the list 
+                $availableTeams = collect([]);
+                foreach ($teams as $team) {
+                    //Get all players on that team
+                    $playersOnTeam = $players->where("zone", $team);
+                    //Get player in the chosen slot
+                    $playerInChosenSlot = $playersOnTeam->where("slot", $chosenSlot)->first();
+                    if ($playerInChosenSlot) {
+                        
+                    } else {
+                        $availableTeams->push($team);
+                    }
+                }
+            
+                // If we have a team here that means there is a free slot
+                try {
+                    $chosenTeam = $availableTeams->random();
+                    // Assign that player to the slot we know is free
+                    $player->slot = $chosenSlot;
+                    $player->zone = $chosenTeam;
+                    
+                    $playerArray->forget($playerArray->search($player));
+
+                    //TODO: Full batch database update
+                    $player->save();
+                } catch (\Throwable $th) {
+                    //If there was no team then there wasn't a free slot, try the next one
+                    continue;
+                }
+
+                $slotFilled = true;
+            }
+        }
+
+        // Choose a random player
+        
+        $this->dispatch('player-moved');
     }
 
     public function shuffle() {    

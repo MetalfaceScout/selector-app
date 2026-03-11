@@ -16,7 +16,8 @@ class Player extends Model
         'scout_mvp',
         'ammo_mvp',
         'medic_mvp',
-        'lfstats_id'
+        'lfstats_id',
+        'modifier'
         ];
     use HasFactory;
 }
