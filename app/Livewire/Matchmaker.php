@@ -103,9 +103,8 @@ class Matchmaker extends Component
                     $playersOnTeam = $players->where("zone", $team);
                     //Get player in the chosen slot
                     $playerInChosenSlot = $playersOnTeam->where("slot", $chosenSlot)->first();
-                    if ($playerInChosenSlot) {
-                        
-                    } else {
+                
+                    if (!$playerInChosenSlot) {
                         $availableTeams->push($team);
                     }
                 }
@@ -121,6 +120,7 @@ class Matchmaker extends Component
 
                     //TODO: Full batch database update
                     $player->save();
+
                 } catch (\Throwable $th) {
                     //If there was no team then there wasn't a free slot, try the next one
                     continue;
@@ -130,8 +130,20 @@ class Matchmaker extends Component
             }
         }
 
-        // Choose a random player
+        // go slot by slot and check if there is a player
+        // if there is, match the closest player from the pool into the next team
+        // if there isn't, random select a player from the pool and assign them to that slot
+
+        $slots = array_keys($this->teamConfigs[$this->gameType][array_key_first($this->teamConfigs[$this->gameType])]);
         
+        foreach ($slots as $slot) {
+            $playersInSlot = $players->where('slot', $slot);
+            if ($playersInSlot->count() > 0) {
+                $playerToMatch = $playersInSlot->first();
+                $positionalMvp = $playerToMatch->getMVPFromIndex($slot);
+            }
+        }
+
         $this->dispatch('player-moved');
     }
 

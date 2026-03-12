@@ -7,6 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
+    public function getMVPFromIndex($index) {
+        switch ($index) {
+            case 0:
+                return $this->commander_mvp;
+            case 1:
+                return $this->heavy_mvp;
+            case 2:
+                return $this->scout_mvp;
+            case 3:
+                return $this->ammo_mvp;
+            case 4:
+                return $this->medic_mvp;
+            default:
+                return null;
+        }
+    }
+
     protected $fillable = [
         'codename',
         'zone',
