@@ -1,7 +1,8 @@
 <div>
     {{-- The whole world belongs to you. --}}
     <div class="flex flex-row">
-        @foreach($teamConfigs[$gameType] as $teamKey => $teamData)
+        @foreach($teamConfigs[$this->gameType] as $teamKey => $teamData)
+            
             <div>
                 <h4 class="mb-4 text-xl font-bold border-b-2 dark:text-zinc-200">
                     {{ $teamKey }}

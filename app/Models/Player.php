@@ -14,10 +14,11 @@ class Player extends Model
             case 1:
                 return $this->heavy_mvp;
             case 2:
-                return $this->scout_mvp;
             case 3:
-                return $this->ammo_mvp;
+                return $this->scout_mvp;
             case 4:
+                return $this->ammo_mvp;
+            case 5:
                 return $this->medic_mvp;
             default:
                 return null;

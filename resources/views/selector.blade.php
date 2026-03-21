@@ -2,6 +2,7 @@
     <x-selector-layout>
         <x-slot name="left">
             <livewire:add-player />
+            <livewire:change-gametype />
         </x-slot>
         <x-slot name="middle">
             <livewire:player-zone zone-name="Player Pool" zone-id="player-pool" />

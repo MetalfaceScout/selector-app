@@ -130,21 +130,68 @@ class Matchmaker extends Component
             }
         }
 
-        // go slot by slot and check if there is a player
-        // if there is, match the closest player from the pool into the next team
-        // if there isn't, random select a player from the pool and assign them to that slot
-
         $slots = array_keys($this->teamConfigs[$this->gameType][array_key_first($this->teamConfigs[$this->gameType])]);
+        $teamCount = count($allTeams);
+
+
+        while ($this->teamIsFull($players) == false) {
+            foreach ($slots as $slot) {
+                $playersInSlot = $players->where('slot', $slot)->where('zone', '!=', 'player-pool');
+
+                // Case 1: All teams empty for slot: Chose a random team and assign a random player from the pool to that slot
+                if ($playersInSlot->count() == 0) {
+                    $availableTeams = collect($allTeams);
+                    $chosenTeam = $availableTeams->random();
+                    $player = $players->where('zone', 'player-pool')->random();
+                    $player->zone = $chosenTeam;
+                    $player->slot = $slot;
+                    $player->save();
+                }
+
+                // Case 2: One or more players on team in that slot but team is not full:
+                if ($playersInSlot->count() > 0 && $playersInSlot->count() < $teamCount) {
+                    $playerInSlot = $players->where('slot', $slot)
+                        ->where('zone', '!=', 'player-pool')
+                        ->first();
+                    $positionalMvp = $playerInSlot->getMVPFromIndex($slot);
+                    $matchedPlayer = $players
+                        ->reject(fn($player) => $player->id === $playerInSlot->id)
+                        ->reject(fn($player) => $player->zone != 'player-pool')
+                        ->sortBy(function ($player) use ($positionalMvp, $slot) {
+                            return abs($player->getMVPFromIndex($slot) - $positionalMvp);
+                        })
+                        ->first();
+                    $remainingTeams = collect($allTeams)->reject(fn($team) => $team == $playerInSlot->zone);
+                    $chosenTeam = $remainingTeams->random();
+                    $matchedPlayer->zone = $chosenTeam;
+                    $matchedPlayer->slot = $slot;
+                    $matchedPlayer->save();
+                }
+                
+            }
+        }
         
-        foreach ($slots as $slot) {
-            $playersInSlot = $players->where('slot', $slot);
-            if ($playersInSlot->count() > 0) {
-                $playerToMatch = $playersInSlot->first();
-                $positionalMvp = $playerToMatch->getMVPFromIndex($slot);
+
+        $this->dispatch('player-moved');
+    }
+
+    private function teamIsFull($players) {
+        $count = 0;
+        $teams = array_keys($this->teamConfigs[$this->gameType]);
+        foreach ($teams as $team) {
+            $playersOnTeam = $players->where('zone', $team);
+            foreach ($playersOnTeam as $player) {
+                $count += 1;
             }
         }
 
-        $this->dispatch('player-moved');
+        if ($count < $this->getMinRequiredPlayers()) {
+            return false;
+        }
+        return true;
+    }
+
+    private function matchMVP($positionalMVP, $players, $position) {
     }
 
     public function shuffle() {    

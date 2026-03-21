@@ -3,11 +3,15 @@
 namespace App\Livewire\Traits;
 
 use App\Models\Player;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 
 trait ManagesPlayers
 {
-    public $gameType = 'sm5-6v6';
+    #[Computed]
+    public function gameType() {
+        return auth()->user()->gametype;
+    }
 
     public $teamConfigs = 
     [
