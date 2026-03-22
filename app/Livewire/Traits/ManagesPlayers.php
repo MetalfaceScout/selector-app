@@ -51,6 +51,35 @@ trait ManagesPlayers
         ],
     ];
 
+
+
+    public $modiferTables = [
+        'sm5-6v6' => [
+            '3hit' => [0, 1],
+            '1hit' => [2, 3, 4, 5],
+            'resupply' => [4, 5],
+            'commander' => [0],
+            'heavy' => [1],
+            'scout'=> [2,3],
+            'ammo'=> [4],
+            'medic'=> [5],
+        ],
+        'sm5-5v5' => [
+            '3hit' => [0, 1],
+            '1hit' => [2, 3, 4],
+            'resupply' => [3, 4],
+            'commander' => [0],
+            'heavy' => [1],
+            'scout'=> [2],
+            'ammo'=> [3],
+            'medic'=> [4],
+        ],
+    ];
+
+    public function getModifierTable() {
+        return $this->modiferTables[$this->gameType];
+    }
+
     public function updateMvp(int $playerId, $commander, $heavy, $scout, $ammo, $medic) {
         $player = Player::find($playerId);
         $player->update(
@@ -91,6 +120,7 @@ trait ManagesPlayers
         $player = Player::find($playerId);
         $player->modifier = $modifier;
         $player->save();
+        $this->dispatch('player-moved');
     }
 
     public function returnAllToPool(bool $reload) {

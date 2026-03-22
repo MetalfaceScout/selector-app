@@ -16,17 +16,6 @@ class Matchmaker extends Component
     }
 
 
-    private $modifierTable = [
-        '3hit' => [0, 1],
-        '1hit' => [2, 3, 4, 5],
-        'resupply' => [4, 5],
-        'commander' => [0],
-        'heavy' => [1],
-        'scout'=> [2,3],
-        'ammo'=> [4],
-        'medic'=> [5],
-    ];
-
     public function matchmake() {
 
         // Get all players
@@ -64,8 +53,7 @@ class Matchmaker extends Component
 
         while ($playerArray->count() > 0) {
             $player = $playerArray->first();
-        
-            $slots = collect($this->modifierTable[$player->modifier]);
+            $slots = collect($this->getModifierTable()[$player->modifier]);
             $slotFilled = false;
             while (!$slotFilled) {
                 // Choose a slot from the array e.g. 3 hit -> [0, 1]

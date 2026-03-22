@@ -7,7 +7,18 @@
 >
     <div class="flex justify-between items-start">
         <div class="px-2">
-            <p class="font-medium text-gray-800 dark:text-zinc-200 whitespace-nowrap">{{ $player->codename }}</p>
+            <p wire:key="player-card-{{ $player->id }}-{{ $player->modifier }}" @class([
+                'font-medium whitespace-nowrap',
+                'text-red-500' => $player->modifier === '3hit',
+                'text-yellow-500' => $player->modifier === '1hit',
+                'text-blue-500' => $player->modifier === 'resupply',
+                'text-green-500' => $player->modifier === 'commander',
+                'text-purple-500' => $player->modifier === 'heavy',
+                'text-pink-500' => $player->modifier === 'scout',
+                'text-cyan-500' => $player->modifier === 'ammo',
+                'text-orange-500' => $player->modifier === 'medic',
+                'text-gray-800 dark:text-zinc-200' => $player->modifier === '',
+            ])>{{ $player->codename }}</p>
         </div>
 
         <div x-data="{ 
