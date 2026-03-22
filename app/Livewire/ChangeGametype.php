@@ -18,7 +18,7 @@ class ChangeGametype extends Component
         $user = auth()->user();
         $user->gametype = $gametype;
         $user->save();
-
-        $this->dispatch('gametype-changed');
+        $this->returnAllToPool(0);
+        $this->dispatch('player-moved');
     }
 }

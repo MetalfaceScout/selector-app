@@ -37,16 +37,16 @@ trait ManagesPlayers
             'red' => [
                 0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
                 1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                3 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
+                2 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
+                3 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
+                4 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
             ],
             'blue' => [
                 0 => ['id'=> 0, 'position' => 'Commander', 'icon' => 'icons/commander.svg'],
                 1 => ['id'=> 1, 'position' => 'Heavy', 'icon' => 'icons/heavy.svg'],
-                3 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
-                4 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
-                5 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
+                2 => ['id'=> 2, 'position' => 'Scout', 'icon' => 'icons/scout.svg'],
+                3 => ['id'=> 3, 'position' => 'Ammo', 'icon' => 'icons/ammo.svg'],
+                4 => ['id'=> 4, 'position' => 'Medic', 'icon' => 'icons/medic.svg'],
             ]
         ],
     ];
@@ -73,8 +73,8 @@ trait ManagesPlayers
         $player->delete();
         $this->dispatch('player-moved');
     }
-
-    #[On('update-gametype')]
+    
+    #[On('gametype-changed')]
     public function updateGameType($gameType) {
         $this->gameType = $gameType;
     }
@@ -91,5 +91,21 @@ trait ManagesPlayers
         $player = Player::find($playerId);
         $player->modifier = $modifier;
         $player->save();
+    }
+
+    public function returnAllToPool(bool $reload) {
+        $players = Player::where('user_id', auth()->user()->id)
+        ->where('zone', '!=', 'bench')->get();
+
+        $players->each(function ($player) {
+            $player->zone = 'player-pool';
+            $player->save();
+        });
+
+        if ($reload) {
+            $this->dispatch('player-moved');
+        }
+
+        return $players;
     }
 }

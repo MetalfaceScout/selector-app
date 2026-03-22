@@ -15,21 +15,6 @@ class Matchmaker extends Component
         return view('livewire.matchmaker');
     }
 
-    public function returnAllToPool(bool $reload) {
-        $players = Player::where('user_id', Auth::user()->id)
-        ->where('zone', '!=', 'bench')->get();
-
-        $players->each(function ($player) {
-            $player->zone = 'player-pool';
-            $player->save();
-        });
-
-        if ($reload) {
-            $this->dispatch('player-moved');
-        }
-
-        return $players;
-    }
 
     private $modifierTable = [
         '3hit' => [0, 1],
