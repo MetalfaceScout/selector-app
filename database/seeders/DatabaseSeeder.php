@@ -11,8 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //\App\Models\User::factory(10)->create();
-
+        
         \App\Models\User::factory()->create([
             'name' => 'Test',
             'email' => 'dev@test.com',
@@ -20,5 +19,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Player::factory()->count(12)->create();
+
+        $centerSeeder = new CenterSeeder();
+        $centerSeeder->run();
     }
 }

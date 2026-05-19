@@ -5,17 +5,15 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Center;
 
-class PlayerCard extends Component
+class PlayerCardLfstats extends Component
 {
-    public $centers;
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->centers = Center::all()->keyBy('center_id');
+        //
     }
 
     /**
@@ -23,6 +21,6 @@ class PlayerCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.player-card');
+        return view('components.player-card-lfstats');
     }
 }

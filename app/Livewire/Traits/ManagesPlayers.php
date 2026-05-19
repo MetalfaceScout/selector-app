@@ -123,6 +123,13 @@ trait ManagesPlayers
         $this->dispatch('player-moved');
     }
 
+    public function updateCenter($playerId, $centerId) {
+        $player = Player::find($playerId);
+        $player->center = $centerId;
+        $player->save();
+        $this->dispatch('player-moved');
+    }  
+
     public function returnAllToPool(bool $reload) {
         $players = Player::where('user_id', auth()->user()->id)
         ->where('zone', '!=', 'bench')->get();

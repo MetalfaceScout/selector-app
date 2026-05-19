@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::get('/selector', [SelectorController::class,'get'])->name('selector')
 ->middleware('auth');
 
+Route::get('/guest', [SelectorController::class, 'getGuest'])->name('guest');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

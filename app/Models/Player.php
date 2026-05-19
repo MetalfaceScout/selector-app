@@ -35,7 +35,8 @@ class Player extends Model
         'ammo_mvp',
         'medic_mvp',
         'lfstats_id',
-        'modifier'
+        'modifier',
+        'center'
         ];
     use HasFactory;
 }

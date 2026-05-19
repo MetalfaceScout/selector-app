@@ -1,13 +1,14 @@
 @props(['player']) 
 
 <div 
+    wire:key="player-card-{{ $player->id }}-{{ $player->modifier }}"
     draggable="true"
     ondragstart="event.dataTransfer.setData('text/plain', '{{ $player->id }}')"
     class="p-4 relative border rounded shadow cursor-grab active:cursor-grabbing w-fit h-fit bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700"
 >
     <div class="flex justify-between items-start">
         <div class="px-2">
-            <p wire:key="player-card-{{ $player->id }}-{{ $player->modifier }}" @class([
+            <p @class([
                 'font-medium whitespace-nowrap',
                 'text-red-500' => $player->modifier === '3hit',
                 'text-yellow-500' => $player->modifier === '1hit',
@@ -121,12 +122,26 @@
                             <option value="medic" @selected($player->modifier == 'medic')>Medic</option>
                         </select>
 
+                        <select
+                            wire:change="updateCenter({{ $player->id }}, $event.target.value)"
+                            class="border p-2 rounded"
+                        >
+                            @foreach ($centers as $center)
+                                <option value="{{ $center->center_id }}" @selected($player->center == $center->center_id)>
+                                    {{ $center->pretty_name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
                         <x-secondary-button 
                             @click.="$wire.updateFromLfstats({{ $player->id }}, lfstats_id); open = false"
                             class="my-2 px-3 py-1 text-xs font-semibold"
                         >
                             Lfstats Update
                         </x-secondary-button>
+                        
+
 
                         <x-secondary-button 
                             @click.="$wire.removePlayer({{ $player->id }}); open = false"

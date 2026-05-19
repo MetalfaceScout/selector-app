@@ -28,6 +28,11 @@ class Matchmaker extends Component
         $allTeams = array_keys($this->teamConfigs[$this->gameType]);
 
         $players = $this->returnAllToPool(0);
+
+        if ($players->count() < $this->getMinRequiredPlayers()) {
+            $this->dispatch('show-error-toast', message: 'There are not enough players!');
+            return;
+        }
         
         // Assign modifiers - Grab modifier players until there are none left or we are unable to assign a modifier due to full slots
 
@@ -162,9 +167,6 @@ class Matchmaker extends Component
             return false;
         }
         return true;
-    }
-
-    private function matchMVP($positionalMVP, $players, $position) {
     }
 
     public function shuffle() {    

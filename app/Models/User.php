@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'gametype',
+        'center',
+        'temp'
     ];
 
     /**
@@ -43,4 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function prunable(): Builder
+    {
+        return static::query()
+                ->where('is_guest', true)
+                ->where('updated_at', '<=', now()->subDays(7));
+    }
 }

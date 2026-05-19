@@ -38,6 +38,12 @@
                         Login
                     </x-primary-button>
                 </form>
+
+                <form method="GET" action="{{ url('guest') }}" class="flex justify-center m-8">
+                    <x-primary-button class="text-4xl">
+                        Continue as Guest
+                    </x-primary-button>
+                </form>
             @endauth
         @endif
     </div>

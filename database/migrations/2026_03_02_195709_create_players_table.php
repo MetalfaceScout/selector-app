@@ -35,12 +35,15 @@ return new class extends Migration
             $table->float('medic_mvp')->default(4); 
         
             $table->integer('lfstats_id')->default(-1);
+
+            $table->integer('center')->default(0);
             
             $table->timestamps();
         });
     }
 
     /**
+
      * Reverse the migrations.
      */
     public function down(): void

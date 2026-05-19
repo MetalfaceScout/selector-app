@@ -3,6 +3,7 @@
         <x-slot name="left">
             <livewire:add-player />
             <livewire:change-gametype />
+            <livewire:add-player-lfstats />
         </x-slot>
         <x-slot name="middle">
             <livewire:player-zone zone-name="Player Pool" zone-id="player-pool" />

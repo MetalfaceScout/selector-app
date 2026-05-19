@@ -20,6 +20,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('gametype')->default('sm5-6v6');
+            $table->integer('center')->default(0);
+            $table->boolean('temp')->default(false);
         });
     }
 
